@@ -1,0 +1,23 @@
+EtagEntityBundle
+On update/insert/remove entity, writes etag value to db, used for http cache’ing
+One alias can have many entities.
+
+Config:
+Eg:
+ito_etag_entity:
+aliases:
+        aliasas: [ Acme\TestBundle\Entity\City, Acme\TestBundle\Entity\Country]
+        aliasas2: [Acme\TestBundle\Entity\Testserver]
+
+
+Usage:
+
+	$etag = $this->get('ito_etag_entity.etag_entity')->getEtag('city_country');
+        $response = new JsonResponse();
+        $response->setEtag($etag);
+
+        if($response->isNotModified($request)){
+            return $response;
+	} else {
+	    // do your stuff here
+	}

@@ -1,0 +1,7 @@
+
+# Doctrine Configuration app/config/config.yml
+doctrine:
+    orm:
+        dql:
+            string_functions:
+                hour: Acme\TestBundle\DQL\HourFunction

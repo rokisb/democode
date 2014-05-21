@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <!--
+    <parameters>
+        <parameter key="ito_etag_entity.example.class">Ito\EtagEntityBundle\Example</parameter>
+    </parameters>
+
+    <services>
+        <service id="ito_etag_entity.example" class="%ito_etag_entity.example.class%">
+            <argument type="service" id="service_id" />
+            <argument>plain_value</argument>
+            <argument>%parameter_name%</argument>
+        </service>
+    </services>
+    -->
+    <services>
+        <service class="Ito\EtagEntityBundle\EventListener\EtagListener">
+            <tag name="doctrine.event_listener" event="prePersist" />
+            <tag name="doctrine.event_listener" event="postUpdate" />
+            <tag name="doctrine.event_listener" event="preRemove" />
+            <argument>%ito_etag_entity.aliases%</argument>
+        </service>
+        <service id="ito_etag_entity.etag_entity" class="Ito\EtagEntityBundle\Service\EtagService">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+        </service>
+    </services>
+
+
+</container>
